@@ -1,0 +1,198 @@
+/* General */
+body
+{
+  background-color: #6ad;
+  font-family: Arial, sans-serif;
+  font-size: 95%;
+  margin: 0;
+  padding: 0;
+}
+a
+{
+  color: #147;
+}
+
+/* Type list tables */
+table.type-list
+{
+  width: 100%;
+  font-size: 95%;
+  margin: 0;
+  padding: 0;
+  border-spacing: 0;
+  border-bottom: 1px solid #ddd;
+}
+table.type-list tr
+{
+  height: 25px;
+}
+table.type-list td
+{
+  border-top: 1px solid #ddd;
+}
+table.type-list td.action-links
+{
+  text-align: right;
+}
+table.type-list tr:hover
+{
+  background-color: #eee;
+}
+table.type-list td.textbox-preview
+{
+  color: #aaa;
+}
+
+/* Input fields */
+input[type="text"], input[type="password"], textarea
+{
+  border: 1px solid #aaa;
+  padding: 3px;
+  margin: 0;
+}
+input[type="text"], input[type="password"]
+{
+  font-size: 105%;
+}
+div.field
+{
+  margin: 5px 0;
+  background-color: #eef;
+  padding: 5px;
+}
+div.field textarea
+{
+  width: 100%;
+  margin: 5px 0;
+}
+label
+{
+  font-weight: bold;
+}
+div.string-field label, div.integer-field label, div.float-field label
+{
+  display: block;
+  float: left;
+  clear: left;
+  width: 100px;
+  margin-right: 5px;
+  padding: 4px 0;
+}
+div.string-field input[type="text"]
+{
+  width: 700px;
+}
+div.integer-field, div.float-field, div.string-field input[type="password"]
+{
+  width: 350px;
+}
+form div.submit-buttons
+{
+  font-size: small;
+}
+
+/* Header */
+#header
+{
+  background-color: #123;
+  color: #899;
+}
+#header a
+{
+  color: #6ad;
+}
+#header #login-information
+{
+  float: right;
+  margin-top: 18px;
+  margin-right: 20px;
+  font-size: small;
+}
+#header #site-title
+{
+  color: white;
+  font-weight: bold;
+  font-size: 25px;
+  padding: 18px 20px;
+}
+
+/* Tabs */
+#tabs
+{
+  height: 29px;
+  clear: both;
+  margin: 0;
+  padding: 0 20px;
+}
+#tabs li
+{
+  display: inline;
+  list-style: none;
+}
+#tabs a
+{
+  float: left;
+  margin-right: 3px;
+  padding: 6px 8px 5px;
+  font-size: 14px;
+  line-height: 16px;
+  border-bottom: 2px solid #ccc;
+
+  text-decoration: none;
+  color: #222;
+  background-color: #eee;
+}
+#tabs a:hover, #tabs a.current
+{
+  background-color: #6ad;
+  border-color: #6ad;
+}
+#tabs a.current
+{
+  font-weight: bold;
+  font-size: 13px;
+}
+
+/* Main body */
+#main
+{
+  background-color: white;
+  margin: 10px;
+  padding: 10px 20px;
+  border-bottom: 2px solid #58b
+}
+#page-title
+{
+  font-size: 24px;
+  text-shadow: -1px 2px 3px #bbb;
+  margin-bottom: 5px;
+}
+
+/* Alerts */
+#alerts, #errors
+{
+  font-size: small;
+  padding: 5px;
+  margin: 5px 0;
+}
+#alerts ul, #errors ul
+{
+  margin: 0;
+  padding: 0;
+}
+#alerts li, #errors li
+{
+  list-style: none;
+}
+#alerts
+{
+  color: green;
+  background-color: #efe;
+  border: 1px solid green;
+}
+#errors
+{
+  color: red;
+  background-color: #fee;
+  border: 1px solid red;
+}

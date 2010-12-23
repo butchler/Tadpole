@@ -1,0 +1,29 @@
+<html>
+<head>
+   <title>Install Tadpole CMS</title>
+</head>
+<body>
+   <h1>Tadpole Installation</h1>
+   Things to do before installing Tadpole:
+   <ul>
+      <li>Make sure your config.php file is writeable by the web server.</li>
+      <li>Make sure the public/ folder is also writeable.</li>
+      <li>Create a new empty database that will store all of Tadpole's data.</li>
+   </ul>
+   
+   <em>Special note for sqlite3: To use a sqlite3 database, enter 'pdo' for the database driver and 'sqlite:/path/to/your/database' for the database host, and leave all other fields blank.</em>
+   </br />
+
+   <h2>Database settings</h2>
+   <form action="./install.php" method="post">
+      Database driver: <input type="text" name="db_driver" value="mysql" /><br />
+      Database host: <input type="text" name="db_host" value="localhost" /><br />
+      Database user: <input type="text" name="db_username" value="root" /><br />
+      Database password: <input type="password" name="db_password" /><br />
+      Database name: <input type="text" name="db_name" value="tadpole" /><br />
+      <!-- TODO: Table prefix -->
+
+      <input type="submit" value="Install" />
+   </form>
+</body>
+</html>

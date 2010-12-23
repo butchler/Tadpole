@@ -1,0 +1,17 @@
+#
+# Edit RewriteBase and rename this file to .htaccess if you want URL rewriting
+#
+
+AddDefaultCharset UTF-8
+Options -Indexes +FollowSymLinks
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Set this to wherever you installed Tadpole on your web server (Just / if you installed it at the root of your web server)
+  RewriteBase /tadpole/
+  
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+</IfModule>
