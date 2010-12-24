@@ -1985,7 +1985,7 @@ function listPageRecursively(\$page)
    echo '    <a  href="' . ROOT_URL . '/admin/edit/page/' . \$page->id . '">Edit Page</a> | ';
    echo '    <a href="' . ROOT_URL . '/admin/edit/page/new/' . \$page->id . '">Add Child</a> | ';
    echo '    <a href="' . ROOT_URL . '/admin/make-duplicate-page/' . \$page->id . '">Make Duplicate</a> | ';
-   echo '    <a href="' . ROOT_URL . '/admin/remove/page/' . \$page->id . '" onclick="javascript:return confirm(\\'Are you sure you want to delete the page \\'' . \$page->title . '\\'?\\');">Delete Page</a>';
+   echo '    <a href="' . ROOT_URL . '/admin/remove/page/' . \$page->id . '" onclick="javascript:return confirm(\\'Are you sure you want to delete the page \\\\\\'' . \$page->title . '\\\\\\'?\\');">Delete Page</a>';
    echo '  </span>';
    echo '</div>';
 
