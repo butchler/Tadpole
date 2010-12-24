@@ -69,7 +69,7 @@ label
 {
   font-weight: bold;
 }
-div.string-field label, div.integer-field label, div.float-field label
+div.string-field label, div.integer-field label, div.float-field label, div.file-upload-field label, div.image-upload-field label
 {
   display: block;
   float: left;

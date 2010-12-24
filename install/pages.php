@@ -357,6 +357,10 @@ addPage(array(
    'title' => 'Create type',
    'slug' => 'create-type',
    'body' => <<<EODEOD
+<p style="font-size: small; color: #aaa;">
+Note: The Type Name will become the table's name in the database and the field names will become the table's column names.
+</p>
+
 <form action="<?php echo ROOT_URL; ?>/admin/do-create-type" method="post">
 
 <label for="type_name">Type Name</label><br />
@@ -756,7 +760,7 @@ echo <<<EOD
 
 ?>
 
-<form method="post" action="<?php echo ROOT_URL; ?>/admin/save/\$typeName/<?php echo \\\$query; ?>">
+<form enctype="multipart/form-data" method="post" action="<?php echo ROOT_URL; ?>/admin/save/\$typeName/<?php echo \\\$query; ?>">
 
 EOD;
 
@@ -1288,7 +1292,7 @@ else
 
 ?>
 
-<form method="post" action="<?php echo ROOT_URL; ?>/admin/save/user/<?php echo \$query; ?>">
+<form enctype="multipart/form-data" method="post" action="<?php echo ROOT_URL; ?>/admin/save/user/<?php echo \$query; ?>">
   <div class="field string-field"><label for="field-username">Username</label> <input type="text" name="username" id="field-username" value="<?php echo htmlspecialchars(\$user->username); ?>" /></div>
   <div class="field string-field"><label for="field-password_hash" style="width: 200px;">New Password:</label> <input type="password" name="new_password" id="field-new_password" /></div>
   <div class="field string-field"><label for="field-password_hash" style="width: 200px;">Confirm Password:</label> <input type="password" name="new_password2" id="field-new_password2" /></div>
@@ -1529,7 +1533,7 @@ else
 
 ?>
 
-<form method="post" action="<?php echo ROOT_URL; ?>/admin/save/data-type/<?php echo \$query; ?>">
+<form enctype="multipart/form-data" method="post" action="<?php echo ROOT_URL; ?>/admin/save/data-type/<?php echo \$query; ?>">
   <div class="field string-field"><label for="field-name">Name</label> <input type="text" name="name" id="field-name" value="<?php echo htmlspecialchars(\$data->name); ?>" /></div>
   <div class="field string-field"><label for="field-database_type">Database type</label> <input type="text" name="database_type" id="field-database_type" value="<?php echo htmlspecialchars(\$data->database_type); ?>" /></div>
   <div class="field textbox-field"><label for="field-default_value_code">Default value code</label> <textarea name="default_value_code" id="field-default_value_code" rows="10" cols="100"><?php echo htmlspecialchars(\$data->default_value_code); ?></textarea></div>
@@ -1786,7 +1790,7 @@ else
 
 ?>
 
-<form method="post" action="<?php echo ROOT_URL; ?>/admin/save/layout/<?php echo \$query; ?>">
+<form enctype="multipart/form-data" method="post" action="<?php echo ROOT_URL; ?>/admin/save/layout/<?php echo \$query; ?>">
   <div class="field string-field"><label for="field-name">Name</label> <input type="text" name="name" id="field-name" value="<?php echo htmlspecialchars(\$layout->name); ?>" /></div>
   <div class="field textbox-field"><label for="field-body">Body</label> <textarea name="body" id="field-body" rows="10" cols="100"><?php echo htmlspecialchars(\$layout->body); ?></textarea></div>
   <div class="field"><label for="field-parent_id">Parent Layout</label>
@@ -1981,7 +1985,7 @@ function listPageRecursively(\$page)
    echo '    <a  href="' . ROOT_URL . '/admin/edit/page/' . \$page->id . '">Edit Page</a> | ';
    echo '    <a href="' . ROOT_URL . '/admin/edit/page/new/' . \$page->id . '">Add Child</a> | ';
    echo '    <a href="' . ROOT_URL . '/admin/make-duplicate-page/' . \$page->id . '">Make Duplicate</a> | ';
-   echo '    <a href="' . ROOT_URL . '/admin/remove/page/' . \$page->id . '" onclick="javascript:return confirm(\\'Are you sure you want to delete this layout?\\');">Delete Page</a>';
+   echo '    <a href="' . ROOT_URL . '/admin/remove/page/' . \$page->id . '" onclick="javascript:return confirm(\\'Are you sure you want to delete the page \\'' . \$page->title . '\\'?\\');">Delete Page</a>';
    echo '  </span>';
    echo '</div>';
 
@@ -2092,11 +2096,11 @@ else
 
 ?>
 
-<form method="post" action="<?php echo ROOT_URL; ?>/admin/save/page/<?php echo \$query[0]; ?>">
+<form enctype="multipart/form-data" method="post" action="<?php echo ROOT_URL; ?>/admin/save/page/<?php echo \$query[0]; ?>">
   <div class="field string-field"><label for="field-title">Title</label> <input type="text" name="title" id="field-title" value="<?php echo htmlspecialchars(\$page->title); ?>" /></div>
   <div class="field string-field"><label for="field-slug">Slug</label> <input type="text" name="slug" id="field-slug" value="<?php echo htmlspecialchars(\$page->slug); ?>" /></div>
   <div class="field textbox-field"><label id="head-label" for="field-head">Head</label> <textarea name="head" id="field-head" rows="10" cols="100"><?php echo htmlspecialchars(\$page->head); ?></textarea></div>
-  <div class="field textbox-field"><label for="field-body">Body</label> <textarea name="body" id="field-body" rows="10" cols="100"><?php echo htmlspecialchars(\$page->body); ?></textarea></div>
+  <div class="field textbox-field"><label for="field-body">Body</label> <textarea name="body" id="field-body" rows="25" cols="100"><?php echo htmlspecialchars(\$page->body); ?></textarea></div>
 
   <div class="field" style="float: left; margin-right: 5px;"><label for="field-parent_id">Parent Page</label>
     <select name="parent_id" id="field-parent_id">
@@ -2144,8 +2148,8 @@ foreach (\$layouts as \$layout)
 
   <div style="clear: both;"></div>
 
-  <div class="field string-field"><label for="field-created_time" style="width: 150px;">Created Time</label> <?php echo date('l, F j, Y, g:i:s A', \$page->created_time); ?></div>
-  <div class="field string-field"><label for="field-last_modified_time" style="width: 150px;">Last Modified Time</label> <?php echo date('l, F j, Y, g:i:s A', \$page->last_modified_time); ?></div>
+  <div class="field string-field"><label for="field-created_time">Created On</label> <?php echo date('l, F j, Y, g:i:s A', \$page->created_time); ?></div>
+  <div class="field string-field"><label for="field-last_modified_time">Last Modified</label> <?php echo date('l, F j, Y, g:i:s A', \$page->last_modified_time); ?></div>
 
   <div id="submit-buttons">
     <input type="submit" name="save" value="Save and Close" />
@@ -2279,6 +2283,9 @@ if (isset(\$_POST['last_modified_time']))
 // Update database with new data
 if (\$query == 'new')
 {
+   \$fields['created_time'] = (string)(time());
+   \$fields['last_modified_time'] = \$fields['created_time'];
+
    \$result = db::add('page', \$fields);
    if (\$result == false)
    {
@@ -2292,6 +2299,8 @@ if (\$query == 'new')
 }
 else
 {
+   \$fields['last_modified_time'] = (string)(time());
+
    \$result = db::update('page', \$fields, array('id' => \$query));
    if (\$result === false)
    {
@@ -2640,7 +2649,7 @@ if (alert::hasErrors())
 }
 ?>
 
-<form action="<?php echo ROOT_URL; ?>/admin/do-login" method="post">
+<form enctype="multipart/form-data" action="<?php echo ROOT_URL; ?>/admin/do-login" method="post">
   <div class="field string-field"><label for="username">Username:</label><input style="width: 250px;" name="username" id="username" type="text" /></div>
   <div class="field string-field"><label for="password">Password:</label><input style="width: 250px;" name="password" id="password" type="password" /></div>
   <input type="submit" value="Log in" />
@@ -2934,7 +2943,7 @@ else
 
 ?>
 
-<form method="post" action="<?php echo ROOT_URL; ?>/admin-backup/save/user/<?php echo \$query; ?>">
+<form enctype="multipart/form-data" method="post" action="<?php echo ROOT_URL; ?>/admin-backup/save/user/<?php echo \$query; ?>">
   <div class="field string-field"><label for="field-username">Username</label> <input type="text" name="username" id="field-username" value="<?php echo htmlspecialchars(\$user->username); ?>" /></div>
   <div class="field string-field"><label for="field-password_hash" style="width: 200px;">New Password:</label> <input type="password" name="new_password" id="field-new_password" /></div>
   <div class="field string-field"><label for="field-password_hash" style="width: 200px;">Confirm Password:</label> <input type="password" name="new_password2" id="field-new_password2" /></div>
@@ -2996,11 +3005,11 @@ else
 
 ?>
 
-<form method="post" action="<?php echo ROOT_URL; ?>/admin-backup/save/page/<?php echo \$query[0]; ?>">
+<form enctype="multipart/form-data" method="post" action="<?php echo ROOT_URL; ?>/admin-backup/save/page/<?php echo \$query[0]; ?>">
   <div class="field string-field"><label for="field-title">Title</label> <input type="text" name="title" id="field-title" value="<?php echo htmlspecialchars(\$page->title); ?>" /></div>
   <div class="field string-field"><label for="field-slug">Slug</label> <input type="text" name="slug" id="field-slug" value="<?php echo htmlspecialchars(\$page->slug); ?>" /></div>
   <div class="field textbox-field"><label id="head-label" for="field-head">Head</label> <textarea name="head" id="field-head" rows="10" cols="100"><?php echo htmlspecialchars(\$page->head); ?></textarea></div>
-  <div class="field textbox-field"><label for="field-body">Body</label> <textarea name="body" id="field-body" rows="10" cols="100"><?php echo htmlspecialchars(\$page->body); ?></textarea></div>
+  <div class="field textbox-field"><label for="field-body">Body</label> <textarea name="body" id="field-body" rows="25" cols="100"><?php echo htmlspecialchars(\$page->body); ?></textarea></div>
 
   <div class="field" style="float: left; margin-right: 5px;"><label for="field-parent_id">Parent Page</label>
     <select name="parent_id" id="field-parent_id">
@@ -3048,8 +3057,8 @@ foreach (\$layouts as \$layout)
 
   <div style="clear: both;"></div>
 
-  <div class="field string-field"><label for="field-created_time" style="width: 150px;">Created Time</label> <?php echo date('l, F j, Y, g:i:s A', \$page->created_time); ?></div>
-  <div class="field string-field"><label for="field-last_modified_time" style="width: 150px;">Last Modified Time</label> <?php echo date('l, F j, Y, g:i:s A', \$page->last_modified_time); ?></div>
+  <div class="field string-field"><label for="field-created_time">Created On</label> <?php echo date('l, F j, Y, g:i:s A', \$page->created_time); ?></div>
+  <div class="field string-field"><label for="field-last_modified_time">Last Modified</label> <?php echo date('l, F j, Y, g:i:s A', \$page->last_modified_time); ?></div>
 
   <div id="submit-buttons">
     <input type="submit" name="save" value="Save and Close" />
@@ -3111,7 +3120,7 @@ else
 
 ?>
 
-<form method="post" action="<?php echo ROOT_URL; ?>/admin-backup/save/layout/<?php echo \$query; ?>">
+<form enctype="multipart/form-data" method="post" action="<?php echo ROOT_URL; ?>/admin-backup/save/layout/<?php echo \$query; ?>">
   <div class="field string-field"><label for="field-name">Name</label> <input type="text" name="name" id="field-name" value="<?php echo htmlspecialchars(\$layout->name); ?>" /></div>
   <div class="field textbox-field"><label for="field-body">Body</label> <textarea name="body" id="field-body" rows="10" cols="100"><?php echo htmlspecialchars(\$layout->body); ?></textarea></div>
   <div class="field"><label for="field-parent_id">Parent Layout</label>
@@ -3473,6 +3482,9 @@ if (isset(\$_POST['last_modified_time']))
 // Update database with new data
 if (\$query == 'new')
 {
+   \$fields['created_time'] = (string)(time());
+   \$fields['last_modified_time'] = \$fields['created_time'];
+
    \$result = db::add('page', \$fields);
    if (\$result == false)
    {
@@ -3486,6 +3498,8 @@ if (\$query == 'new')
 }
 else
 {
+   \$fields['last_modified_time'] = (string)(time());
+
    \$result = db::update('page', \$fields, array('id' => \$query));
    if (\$result === false)
    {

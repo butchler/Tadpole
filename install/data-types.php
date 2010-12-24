@@ -170,4 +170,156 @@ EODEOD
    ,
 ));
 
+addDataType(array(
+   'name' => 'File Upload',
+   'database_type' => 'string',
+   'default_value_code' => <<<EODEOD
+\$TYPE_VAR_NAME->FIELD_NAME = NULL;
+EODEOD
+   ,
+   'list_code' => <<<EODEOD
+<td class="file-upload-preview"><?php echo htmlspecialchars(\$TYPE_VAR_NAME->FIELD_NAME); ?></td>
+EODEOD
+   ,
+   'edit_code' => <<<EODEOD
+<div class="field file-upload-field">
+  <label for="field-FIELD_NAME">FIELD_NAME_HUMAN_READABLE</label>
+<?php
+if (\$TYPE_VAR_NAME->FIELD_NAME)
+{
+   echo "Current file: \$TYPE_VAR_NAME->FIELD_NAME";
+   echo ", Upload new file:";
+}
+?>
+  <input type="file" name="FIELD_NAME" id="field-FIELD_NAME" />
+</div>
+EODEOD
+   ,
+   'save_code' => <<<EODEOD
+// Validate FIELD_NAME
+if (isset(\$_FILES['FIELD_NAME']))
+{
+   if (empty(\$_FILES['FIELD_NAME']['name']))
+   {
+      // Do nothing, they didn't upload a new file
+   }
+   else if (\$_FILES['FIELD_NAME']['error'] > 0)
+   {
+      alert::addError("Error uploading FIELD_NAME ({\$_FILES['FIELD_NAME']['error']}).");
+   }
+   else
+   {
+      \$path = '/files/' . \$_FILES['FIELD_NAME']['name'];
+
+      if (file_exists(TADPOLE_PATH . \$path))
+      {
+         alert::addError("File \$path already exists.");
+      }
+      else
+      {
+         \$ok = move_uploaded_file(\$_FILES['FIELD_NAME']['tmp_name'], TADPOLE_PATH . \$path);
+         if (\$ok)
+         {
+            \$fields['FIELD_NAME'] = \$path;
+         }
+         else
+         {
+            alert::addError('Error moving image to ' . TADPOLE_PATH . \$path . '.');
+         }
+      }
+   }
+}
+EODEOD
+   ,
+));
+
+addDataType(array(
+   'name' => 'Image Upload',
+   'database_type' => 'string',
+   'default_value_code' => <<<EODEOD
+\$TYPE_VAR_NAME->FIELD_NAME = NULL;
+EODEOD
+   ,
+   'list_code' => <<<EODEOD
+<td class="image-upload-preview"><img src="<?php echo SITE_URL . \$TYPE_VAR_NAME->FIELD_NAME; ?>" style="max-width: 100px; max-height: 100px;" /></td>
+EODEOD
+   ,
+   'edit_code' => <<<EODEOD
+<div class="field image-upload-field">
+  <label for="field-FIELD_NAME">FIELD_NAME_HUMAN_READABLE</label>
+<?php
+if (\$TYPE_VAR_NAME->FIELD_NAME)
+{
+   echo 'Current image: <img src="' . SITE_URL . \$TYPE_VAR_NAME->FIELD_NAME . '" />';
+   echo ", Upload new image:";
+}
+?>
+  <input type="file" name="FIELD_NAME" id="field-FIELD_NAME" />
+</div>
+EODEOD
+   ,
+   'save_code' => <<<EODEOD
+// Validate FIELD_NAME
+if (isset(\$_FILES['FIELD_NAME']))
+{
+   if (empty(\$_FILES['FIELD_NAME']['name']))
+   {
+      // Do nothing, they didn't upload a new file
+   }
+   else if (\$_FILES['FIELD_NAME']['error'] > 0)
+   {
+      alert::addError("Error uploading FIELD_NAME ({\$_FILES['FIELD_NAME']['error']}).");
+   }
+   else if (!in_array(\$_FILES['my_image']['type'], array(
+      'image/gif',
+      'image/jpeg', 'image/pjpeg',
+      'image/png',
+      'image/bmp', 'image/x-windows-bmp',
+      'image/tiff', 'image/x-tiff'
+      )))
+   {
+      alert::addError('my_image must be an image file.');
+   }
+   else
+   {
+      \$imagesFolder = TADPOLE_PATH . '/files/images';
+      if (file_exists(\$imagesFolder) && is_dir(\$imagesFolder))
+      {
+         \$path = '/files/images/' . \$_FILES['FIELD_NAME']['name'];
+      }
+      else
+      {
+         \$ok = mkdir(\$imagesFolder);
+         if (\$ok)
+         {
+            \$path = '/files/images/' . \$_FILES['FIELD_NAME']['name'];
+         }
+         else
+         {
+            \$path = '/files/' . \$_FILES['FIELD_NAME']['name'];
+         }
+      }
+
+      if (file_exists(TADPOLE_PATH . \$path))
+      {
+         alert::addError("File \$path already exists.");
+      }
+      else
+      {
+         \$ok = move_uploaded_file(\$_FILES['FIELD_NAME']['tmp_name'], TADPOLE_PATH . \$path);
+         if (\$ok)
+         {
+            \$fields['FIELD_NAME'] = \$path;
+         }
+         else
+         {
+            alert::addError('Error moving image to ' . TADPOLE_PATH . \$path . '.');
+         }
+      }
+   }
+}
+EODEOD
+   ,
+));
+
 ?>
