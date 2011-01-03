@@ -484,7 +484,12 @@ if (isset(\$_POST['generate_pages']))
    \$inheritLayout = db::get('layout', array('name' => 'inherit'));
 
    \$GLOBALS['typeName'] = \$typeName;
-   \$typeVarName = implode('', array_map('ucfirst', explode('-', \$typeName)));
+   \$typeVarName = explode('-', \$typeName);
+   for (\$i = 1; \$i < count(\$typeVarName); \$i += 1)
+   {
+      \$typeVarName[\$i] = ucfirst(\$typeVarName[\$i]);
+   }
+   \$typeVarName = implode('', \$typeVarName);
    \$GLOBALS['typeVarName'] = \$typeVarName;
    \$GLOBALS['fields'] = \$fields;
 
