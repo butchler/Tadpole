@@ -224,7 +224,7 @@ if (isset(\$_FILES['FIELD_NAME']))
          }
          else
          {
-            alert::addError('Error moving image to ' . TADPOLE_PATH . \$path . '.');
+            alert::addError('Error moving file to ' . TADPOLE_PATH . \$path . '.');
          }
       }
    }
@@ -270,7 +270,7 @@ if (isset(\$_FILES['FIELD_NAME']))
    {
       alert::addError("Error uploading FIELD_NAME ({\$_FILES['FIELD_NAME']['error']}).");
    }
-   else if (!in_array(\$_FILES['my_image']['type'], array(
+   else if (!in_array(\$_FILES['FIELD_NAME']['type'], array(
       'image/gif',
       'image/jpeg', 'image/pjpeg',
       'image/png',
@@ -278,7 +278,7 @@ if (isset(\$_FILES['FIELD_NAME']))
       'image/tiff', 'image/x-tiff'
       )))
    {
-      alert::addError('my_image must be an image file.');
+      alert::addError('FIELD_NAME must be an image file.');
    }
    else
    {
